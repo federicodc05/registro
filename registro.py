@@ -32,11 +32,13 @@ def grafico():
         votesget.append(currentPlace)
     print(votesget)
     y = [float(i) for i in votesget] 
-    x = [i+1 for i in range(len(y))] 
+    x = [i+1 for i in range(len(y))]
+    ytick = [i/2 for i in range(21)]
     print(x)
     print(y)
     plt.plot(x,y)
     plt.xticks(x)
+    plt.yticks(ytick)
     plt.show()
 
 def mediascreen():
