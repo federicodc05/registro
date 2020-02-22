@@ -1,7 +1,43 @@
 from tkinter import *
+import matplotlib.pyplot as plt
 
 def mscreendestroy():
     mscreen.destroy()
+
+def subloadgraph():
+    global s
+    s = sentry.get()
+    subj.destroy()
+    print(s)
+    grafico()
+
+def subgetgraph():
+    global subj
+    global sentry
+    global s
+    subj = Tk()
+    subj.configure(bg = "grey14")
+    s = StringVar()
+    sentry = Entry(subj, textvariable = s)
+    Label(subj,text="Materia?",bg="grey14",fg="white").pack()
+    sentry.pack()
+    Button(subj,text="Ok",command=subloadgraph,bg="grey19",fg="white").pack()
+
+def grafico():
+    global s
+    vt = open(s,"r")
+    votesget = []
+    for line in vt:
+        currentPlace = line[:-1]
+        votesget.append(currentPlace)
+    print(votesget)
+    y = [float(i) for i in votesget] 
+    x = [i+1 for i in range(len(y))] 
+    print(x)
+    print(y)
+    plt.plot(x,y)
+    plt.xticks(x)
+    plt.show()
 
 def mediascreen():
     global mscreen
@@ -85,23 +121,25 @@ def media():
 
 #schermata principale
 screen = Tk()
-screen.title("Registro by federicodc05")
+screen.title("      ")
 screen.configure(bg = "grey14")
-screen.geometry("146x500")
+screen.geometry("176x500")
 e = StringVar()
 entry = Entry(textvariable = e, width=20)
 title = Label(text = "Registro \n by federicodc05", font = ("Agency FB", 20), bg = "grey14", fg = "white")
 text1 = Label(text = "Inserisci il voto", bg = "grey14", fg = "white")
-Ok = Button(text = "Ok", bg = "grey19", fg = "white", width=10, command = subget)
-Media = Button(text = "Fai la media", bg = "grey19", width=10, fg ="white", command = subgetmedia)
+Ok = Button(text = "Ok", bg = "grey19", fg = "white", command = subget)
+Media = Button(text = "Fai la media", bg = "grey19", fg ="white", command = subgetmedia)
+Graph = Button(text = "Mostra in un grafico", bg = "grey19", fg = "white", command = subgetgraph)
 canvas = Canvas(width=173,height=85,highlightthickness=0)#,bg="grey14")
 
 #posizionamento elementi
 title.grid(row=0,column=0)
 text1.grid(row=1,column=0)
 entry.grid(row=2,column=0)
-Ok.grid(row=3,column=0)
-Media.grid(row=4,column=0)
-#canvas.grid(row=0,column=0,columnspan=2)
+Ok.grid(row=2,column=1)
+Media.grid(row=3,column=0)
+Graph.grid(row=4,column=0)
+#canvas.grid(row=0,column=0,columnspan=2) canvas WIP
 
 screen.mainloop()
