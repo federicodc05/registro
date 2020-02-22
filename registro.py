@@ -9,10 +9,16 @@ def mediascreen():
     global md
     mscreen = Tk()
     mscreen.configure(bg="grey14")
-    Label(mscreen,text="voti: ",bg="grey14",fg="white").pack()
-    Label(mscreen,text=voti,bg="grey14",fg="white").pack()
-    Label(mscreen,text="media: "+str(md),bg="grey14",fg="white").pack()
-    Button(mscreen,text="Ok",bg="grey19",fg="white",command=mscreendestroy).pack()
+    l1 = Label(mscreen,text="voti ("+str(len(voti))+"): ",bg="grey14",fg="white")
+    l2 = Label(mscreen,text=voti,bg="grey14",fg="white")
+    l3 = Label(mscreen,text="media: "+str(md),bg="grey14",fg="white")
+    if md < 6:
+        l3.configure(fg="red")
+    b1 = Button(mscreen,text="Ok",bg="grey19",fg="white",command=mscreendestroy)
+    l1.pack()
+    l2.pack()
+    l3.pack()
+    b1.pack()
 
 def subloadmedia():
     global s
@@ -81,19 +87,21 @@ def media():
 screen = Tk()
 screen.title("Registro by federicodc05")
 screen.configure(bg = "grey14")
-#screen.geometry("250x200")
+screen.geometry("146x500")
 e = StringVar()
-entry = Entry(textvariable = e)
+entry = Entry(textvariable = e, width=20)
 title = Label(text = "Registro \n by federicodc05", font = ("Agency FB", 20), bg = "grey14", fg = "white")
 text1 = Label(text = "Inserisci il voto", bg = "grey14", fg = "white")
-Ok = Button(text = "Ok", bg = "grey19", fg = "white", command = subget)
-Media = Button(text = "Fai la media", bg = "grey19", fg ="white", command = subgetmedia)
+Ok = Button(text = "Ok", bg = "grey19", fg = "white", width=10, command = subget)
+Media = Button(text = "Fai la media", bg = "grey19", width=10, fg ="white", command = subgetmedia)
+canvas = Canvas(width=173,height=85,highlightthickness=0)#,bg="grey14")
 
 #posizionamento elementi
-title.grid(row=0,column=0,columnspan=2)
-text1.grid(row=1,column=0,columnspan=2)
+title.grid(row=0,column=0)
+text1.grid(row=1,column=0)
 entry.grid(row=2,column=0)
-Ok.grid(row=2,column=1)
-Media.grid(row=3,column=0,columnspan=2)
+Ok.grid(row=3,column=0)
+Media.grid(row=4,column=0)
+#canvas.grid(row=0,column=0,columnspan=2)
 
 screen.mainloop()
