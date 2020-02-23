@@ -25,28 +25,32 @@ def subgetgraph():
 
 def grafico():
     global s
-    vt = open(s,"r")
-    votesget = []
-    for line in vt:
-        currentPlace = line[:-1]
-        votesget.append(currentPlace)
-    print(votesget)
-    y = [float(i) for i in votesget] 
-    x = [i+1 for i in range(len(y))]
-    ytick = [i/2 for i in range(21)]
-    print(x)
-    print(y)
-    plt.plot(x,y)
-    plt.xticks(x)
-    plt.yticks(ytick)
-    plt.title("Grafico voti in "+s)
-    plt.show()
+    try:
+        vt = open(s,"r")
+        votesget = []
+        for line in vt:
+            currentPlace = line[:-1]
+            votesget.append(currentPlace)
+        print(votesget)
+        y = [float(i) for i in votesget] 
+        x = [i+1 for i in range(len(y))]
+        ytick = [i/2 for i in range(21)]
+        print(x)
+        print(y)
+        plt.plot(x,y)
+        plt.xticks(x)
+        plt.yticks(ytick)
+        plt.title("Grafico voti in "+s)
+        plt.show()
+    except:
+        Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
 
 def mediascreen():
     global mscreen
     global voti
     global md
     mscreen = Tk()
+    mscreen.resizable(0,0)
     mscreen.configure(bg="grey14")
     l1 = Label(mscreen,text="voti ("+str(len(voti))+"): ",bg="grey14",fg="white")
     l2 = Label(mscreen,text=voti,bg="grey14",fg="white")
@@ -78,6 +82,7 @@ def subget():
     global sentry
     global s
     subj = Tk()
+    subj.resizable(0,0)
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -90,6 +95,7 @@ def subgetmedia():
     global sentry
     global s
     subj = Tk()
+    subj.resizable(0,0)
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -100,32 +106,43 @@ def subgetmedia():
 def voto():
     global s
     e = entry.get()
-    print(e)
-    votes = open(s, "a+")
-    votes.write(e+"\n")
-    votes.close()
+    try:
+        float(e)
+        print(e)
+        if float(e) < 0 or float(e) > 10:
+            Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
+        else:
+            votes = open(s, "a+")
+            votes.write(e+"\n")
+            votes.close()
+    except:
+        Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
 
 def media():
     global s
     global voti
     global md
-    votes = open(s, "r")
-    voti = []
-    for line in votes:
-        currentPlace = line[:-1]
-        voti.append(currentPlace)
-    print(voti)
-    md = 0
-    for i in voti:
-        md = md + float(i)
-    md = round(md/len(voti),1)
-    print(md)
-    mediascreen()
+    try:
+        votes = open(s, "r")
+        voti = []
+        for line in votes:
+            currentPlace = line[:-1]
+            voti.append(currentPlace)
+        print(voti)
+        md = 0
+        for i in voti:
+            md = md + float(i)
+        md = round(md/len(voti),1)
+        print(md)
+        mediascreen()
+    except:
+        Label(text="Materia invalida",bg="grey14",fg="white")
 
 #schermata principale
 screen = Tk()
 screen.title("      ")
 screen.configure(bg = "grey14")
+screen.resizable(0,0)
 screen.geometry("176x500")
 e = StringVar()
 entry = Entry(textvariable = e, width=20)
