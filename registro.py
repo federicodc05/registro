@@ -39,6 +39,7 @@ def grafico():
     plt.plot(x,y)
     plt.xticks(x)
     plt.yticks(ytick)
+    plt.title("Grafico voti in "+s)
     plt.show()
 
 def mediascreen():
@@ -117,7 +118,7 @@ def media():
     md = 0
     for i in voti:
         md = md + float(i)
-    md = md/len(voti)
+    md = round(md/len(voti),1)
     print(md)
     mediascreen()
 
