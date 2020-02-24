@@ -17,6 +17,8 @@ def subgetgraph():
     global s
     subj = Tk()
     subj.configure(bg = "grey14")
+    subj.resizable(0,0)
+    subj.iconbitmap("Img/icon.ico")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
     Label(subj,text="Materia?",bg="grey14",fg="white").pack()
@@ -25,8 +27,9 @@ def subgetgraph():
 
 def grafico():
     global s
+    global err
     try:
-        vt = open(s,"r")
+        vt = open("Subj/"+s,"r")
         votesget = []
         for line in vt:
             currentPlace = line[:-1]
@@ -43,7 +46,8 @@ def grafico():
         plt.title("Grafico voti in "+s)
         plt.show()
     except:
-        Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
+        err = Label(text="Materia invalida",bg="grey14",fg="white")
+        err.grid(row=5,column=0)
 
 def mediascreen():
     global mscreen
@@ -83,6 +87,7 @@ def subget():
     global s
     subj = Tk()
     subj.resizable(0,0)
+    subj.iconbitmap("Img/icon.ico")
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -96,6 +101,7 @@ def subgetmedia():
     global s
     subj = Tk()
     subj.resizable(0,0)
+    subj.iconbitmap("Img/icon.ico")
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -105,6 +111,7 @@ def subgetmedia():
 
 def voto():
     global s
+    global err
     e = entry.get()
     try:
         float(e)
@@ -112,18 +119,20 @@ def voto():
         if float(e) < 0 or float(e) > 10:
             Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
         else:
-            votes = open(s, "a+")
+            votes = open("Subj/"+s, "a+")
             votes.write(e+"\n")
             votes.close()
     except:
-        Label(text="Voto invalido",bg="grey14",fg="white").grid(row=5,column=0)
+        err = Label(text="Voto invalido",bg="grey14",fg="white")
+        err.grid(row=5,column=0)
 
 def media():
     global s
     global voti
     global md
+    global err
     try:
-        votes = open(s, "r")
+        votes = open("Subj/"+s, "r")
         voti = []
         for line in votes:
             currentPlace = line[:-1]
@@ -136,13 +145,15 @@ def media():
         print(md)
         mediascreen()
     except:
-        Label(text="Materia invalida",bg="grey14",fg="white")
+        err = Label(text="Materia invalida",bg="grey14",fg="white")
+        err.grid(row=5,column=0)
 
 #schermata principale
 screen = Tk()
 screen.title("      ")
 screen.configure(bg = "grey14")
 screen.resizable(0,0)
+screen.iconbitmap("Img/icon.ico")
 screen.geometry("176x500")
 e = StringVar()
 entry = Entry(textvariable = e, width=20)
@@ -151,15 +162,23 @@ text1 = Label(text = "Inserisci il voto", bg = "grey14", fg = "white")
 Ok = Button(text = "Ok", bg = "grey19", fg = "white", command = subget)
 Media = Button(text = "Fai la media", bg = "grey19", fg ="white", command = subgetmedia)
 Graph = Button(text = "Mostra in un grafico", bg = "grey19", fg = "white", command = subgetgraph)
-canvas = Canvas(width=173,height=85,highlightthickness=0)#,bg="grey14")
+canvas = Canvas(width=176,height=331,highlightthickness=0,bg="grey14")
 
 #posizionamento elementi
-title.grid(row=0,column=0)
+title.grid(row=0,column=0,columnspan=2)
 text1.grid(row=1,column=0)
 entry.grid(row=2,column=0)
 Ok.grid(row=2,column=1)
-Media.grid(row=3,column=0)
-Graph.grid(row=4,column=0)
-#canvas.grid(row=0,column=0,columnspan=2) canvas WIP
+Media.grid(row=3,column=0,columnspan=2)
+Graph.grid(row=4,column=0,columnspan=2)
+canvas.grid(row=6,column=0,columnspan=2) #canvas WIP
+
+#centro canvas 88 165
+
+#canvas
+logo1 = canvas.create_oval(48,125,128,205,fill="blue")
+logo2 = canvas.create_oval(53,130,123,200,fill="lightblue")
+logotext = canvas.create_text(88,165,text="Fede DC",fill="dark goldenrod",font=("Comic Sans MS",11,'bold','italic'))
+copyrighttext = canvas.create_text(120,321,text="©2020 federicodc05",fill="white")
 
 screen.mainloop()
