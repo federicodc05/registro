@@ -4,7 +4,7 @@ import os
 try:
     os.mkdir("Subj")
     print("cartella creata")
-except FileExistsError:
+except:
     print("la cartella esiste già")
 
 def mscreendestroy():
