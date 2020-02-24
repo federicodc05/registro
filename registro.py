@@ -1,5 +1,11 @@
 from tkinter import *
 import matplotlib.pyplot as plt
+import os
+try:
+    os.mkdir("Subj")
+    print("cartella creata")
+except FileExistsError:
+    print("la cartella esiste già")
 
 def mscreendestroy():
     mscreen.destroy()
@@ -18,7 +24,7 @@ def subgetgraph():
     subj = Tk()
     subj.configure(bg = "grey14")
     subj.resizable(0,0)
-    subj.iconbitmap("Img/icon.ico")
+    #subj.iconbitmap("Img/icon.ico")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
     Label(subj,text="Materia?",bg="grey14",fg="white").pack()
@@ -87,7 +93,7 @@ def subget():
     global s
     subj = Tk()
     subj.resizable(0,0)
-    subj.iconbitmap("Img/icon.ico")
+    #subj.iconbitmap("Img/icon.ico")
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -101,7 +107,7 @@ def subgetmedia():
     global s
     subj = Tk()
     subj.resizable(0,0)
-    subj.iconbitmap("Img/icon.ico")
+    #subj.iconbitmap("Img/icon.ico")
     subj.configure(bg = "grey14")
     s = StringVar()
     sentry = Entry(subj, textvariable = s)
@@ -153,7 +159,7 @@ screen = Tk()
 screen.title("      ")
 screen.configure(bg = "grey14")
 screen.resizable(0,0)
-screen.iconbitmap("Img/icon.ico")
+#screen.iconbitmap("Img/icon.ico")
 screen.geometry("176x500")
 e = StringVar()
 entry = Entry(textvariable = e, width=20)
